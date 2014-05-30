@@ -6,7 +6,7 @@ EpsiSearchEngine
 * Search Server (nodejs/restify/mangoDB/Redis/java/tika/pyhton) ... fait
 * Job Worker (Redis/Python/Arqueue)
 * PDF Extractor (Tika...) ... fait
-* Client (Angular/Bootstrap)
+* Client (Angular/Bootstrap) ... fait
 * 
 
 ### Format des données dans mongoDB
