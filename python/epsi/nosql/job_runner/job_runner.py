@@ -1,6 +1,7 @@
 from epsi.nosql.metadata.metadata_extractor import MetadataExtractor
-from epsi.nosql.redis.connector.connector import Connector
-from epsi.nosql.redis.redis_api import RedisAPI
+from epsi.nosql.redis2.connector.connector import Connector
+from epsi.nosql.redis2.redis_api import RedisAPI
+from nosql.mongodb.mongo_api import MongoApi
 
 
 def check():
@@ -14,6 +15,7 @@ def check():
         info = metadata_extractor.extract(retrievedPdf)
         index_info = metadata_extractor.get_index_info(info)
         mongoApi.push(index_info)
+        retrievedPdf = redisApi.retrieve_pdf()
 
 
 

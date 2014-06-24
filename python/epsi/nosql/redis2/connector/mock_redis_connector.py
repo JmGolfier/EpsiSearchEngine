@@ -1,4 +1,4 @@
-from epsi.nosql.redis.connector.redis_connector import RedisConnector
+from epsi.nosql.redis2.connector.redis_connector import RedisConnector
 
 
 class MockRedisConnector(RedisConnector):

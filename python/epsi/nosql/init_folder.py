@@ -1,7 +1,7 @@
 import sys
 from os import listdir
-from epsi.nosql.redis.connector.connector import Connector
-from epsi.nosql.redis.redis_api import RedisAPI
+from redis2.connector.connector import Connector
+from epsi.nosql.redis2.redis_api import RedisAPI
 
 
 def init_folder(path):
@@ -18,3 +18,4 @@ def init_folder(path):
 
 if __name__ == '__main__':
     init_folder(sys.argv[1])
+    # init_folder("/home/manu/Documents/pdf")

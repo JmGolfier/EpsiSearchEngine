@@ -1,5 +1,5 @@
-from epsi.nosql.redis.connector.mock_redis_connector import MockRedisConnector
-from epsi.nosql.redis.redis_api import RedisAPI
+from epsi.nosql.redis2.connector.mock_redis_connector import MockRedisConnector
+from epsi.nosql.redis2.redis_api import RedisAPI
 import unittest
 
 class MyTestCase(unittest.TestCase):
