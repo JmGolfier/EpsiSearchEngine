@@ -20,8 +20,11 @@
             </div>
         </div>
 
+        <h1>Result:</h1>
         <div>
-            {{result}}
+            <ul ng-repeat="result in result.results">
+                <li>{{result.Author}}</li>
+            </ul>
         </div>
     </div>
 

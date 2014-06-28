@@ -4,6 +4,8 @@ searchControllers.controller('SearchController', ['$scope', 'Search',
     function($scope, Search){
         $scope.search = function () {
             var search = new Search({default : $scope.input});
-            $scope.result = search.$save();
+            search.$save(function(result) {
+                $scope.result = result;
+            });
         }
     }]);

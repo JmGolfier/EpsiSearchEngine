@@ -7,13 +7,17 @@ var MongoDBDataProvider = function (options) {
 };
 
 MongoDBDataProvider.prototype.get = function (filter, callback) {
-    this._connect(function (collection, closeCallback) {
-        collection.find({$text: {$search: filter.default, $language: "fr"}}).toArray(function(err, result) {
-            if(err) throw err;
-            callback(result);
-            closeCallback();
+    if(!filter.default)
+        callback({});
+    else {
+        this._connect(function (collection, closeCallback) {
+            collection.find({$text: {$search: filter.default, $language: "fr"}}).toArray(function (err, result) {
+                if (err) throw err;
+                callback({results: result});
+                closeCallback();
+            });
         });
-    });
+    }
 };
 
 MongoDBDataProvider.prototype._ensureIndex = function () {
