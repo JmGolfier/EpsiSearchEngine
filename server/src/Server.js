@@ -4,7 +4,7 @@ var restify = require("restify");
 var Server = function (options) {
     this.port = options.port;
     this.searchService = new SearchService({dataProvider: options.dataProvider});
-    this.server = this._createServer();
+    this._createServer();
     this._addRoutes();
 };
 
@@ -28,7 +28,7 @@ Server.prototype._addRoutes = function () {
     });
 };
 
-Server.prototype._crateServer = function () {
+Server.prototype._createServer = function () {
     this.server = restify.createServer();
     this.server.use(restify.bodyParser({ mapParams: false }));
     this.server.use(

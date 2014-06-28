@@ -6,7 +6,7 @@ var server = new Server(
         port: 8080,
         dataProvider: new MongoDBDataProvider({
             url: "127.0.0.1:27017",
-            databaseName: "epsi"
+            databaseName: "nosql"
         })
     });
 server.run();
