@@ -20,7 +20,6 @@ MongoDBDataProvider.prototype._ensureIndex = function () {
     MongoClient.connect(this.mongoUri, function(err, db) {
         db.ensureIndex("pdfs", {contenu: "text"}, function(err, indexName) {
             if(err) throw err;
-            console.log(indexName);
             db.close();
         });
     });
