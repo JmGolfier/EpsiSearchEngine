@@ -1,23 +1,40 @@
 from epsi.nosql.metadata.metadata_extractor import MetadataExtractor
-from epsi.nosql.redis2.connector.connector import Connector
-from epsi.nosql.redis2.redis_api import RedisAPI
-from nosql.mongodb.mongo_api import MongoApi
+from epsi.nosql.mongodb.mongo_api import MongoApi
+from os import listdir
+from rq import Connection, Queue
+from redis import Redis
 
 
-def check():
+class JobRunner():
+    def __init__(self, connection):
+        redis_conn = Redis()
+        self.q = Queue(connection=redis_conn)
+        pass
+
+    def index_folder(self, path):
+        list_of_pdf = get_pdf_paths(path)
+        for pdf in list_of_pdf:
+            self.add_pdf(pdf)
+
+    def add_pdf(self, path):
+        self.q.enqueue(index_pdf, path)
+
+
+def index_pdf(pdf_path):
     metadata_extractor = MetadataExtractor()
-
-    connector = Connector("localhost", 6379)
-    redisApi = RedisAPI(connector)
-    mongoApi = MongoApi("localhost", 27017)
-    retrievedPdf = redisApi.retrieve_pdf()
-    while retrievedPdf is not None:
-        info = metadata_extractor.extract(retrievedPdf)
-        index_info = metadata_extractor.get_index_info(info)
-        mongoApi.push(index_info)
-        retrievedPdf = redisApi.retrieve_pdf()
+    mongo_api = MongoApi("localhost", 27017)
+    info = metadata_extractor.extract(pdf_path)
+    index_info = metadata_extractor.get_index_info(info)
+    mongo_api.push(index_info)
 
 
+def get_pdf_paths(path):
+    list_files = listdir(path)
+    list_of_pdf = []
+    for pdf_file in list_files:
+        if ".pdf" in pdf_file:
+            list_of_pdf.append(path + "/" + pdf_file)
+    return list_of_pdf
 
-if __name__ == '__main__':
-    check()
+# if __name__ == '__main__':
+#     check()
