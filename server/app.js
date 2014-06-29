@@ -1,6 +1,7 @@
 var Server = require("./src/Server");
 var Parser = require("./src/Parser");
 var MongoDBDataProvider = require("./src/DataProvider/MongoDBDataProvider");
+var AutoCompleteService = require("./src/AutoCompleteService");
 
 var server = new Server(
     {
@@ -9,7 +10,8 @@ var server = new Server(
             url: "127.0.0.1:27017",
             databaseName: "nosql",
             parser: new Parser({"a": "Author", "t": "title", "sub": "subject"})
-        })
+        }),
+        autoCompleteService : new AutoCompleteService()
     });
 server.run();
 

@@ -5,6 +5,11 @@ var MongoDBDataProvider = function (options) {
     this.databaseName = options.databaseName;
     this.mongoUri = "mongodb://" + options.url + "/" + this.databaseName;
     this._ensureIndex();
+    this.autoCompleteService = options.autoCompleteService;
+};
+
+MongoDBDataProvider.prototype.saveQueryRedis = function (queryString) {
+    this.autoCompleteService.add(queryString);
 };
 
 MongoDBDataProvider.prototype.get = function (queryString, callback) {
@@ -21,6 +26,7 @@ MongoDBDataProvider.prototype.get = function (queryString, callback) {
                 if (err) throw err;
                 callback({results: result});
                 closeCallback();
+                self.saveQueryRedis(queryString);
             });
         });
     }

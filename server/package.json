@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "restify": "^2.8.1",
-    "mongodb": "^1.4.5"
+    "mongodb": "^1.4.5",
+    "redis": "^0.10.3"
   }
 }

@@ -11,7 +11,8 @@
         <div align="center" id="searchBody">
             <h1><strong>EpsiSearchEngine</strong></h1>
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." ng-model="input">
+                <input type="text" class="form-control" placeholder="Search..." ng-model="input"
+                       typeahead="search for search in previousSearches | filter:$viewValue | limitTo:8">
                 <div class="input-group-btn">
                     <button role='button' class='btn btn-primary' ng-click="search()">
                         <i class="glyphicon glyphicon-edit"></i> Search
@@ -31,6 +32,8 @@
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
     <script src="js/app.js"></script>
     <script src="js/controller.js"></script>

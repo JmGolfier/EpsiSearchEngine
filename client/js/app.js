@@ -1,6 +1,7 @@
 var AngularApp = angular.module('AngularApp', [
     'ngRoute',
     'ngResource',
+    'ui.bootstrap',
     'searchControllers',
     'searchServices'
 ]);

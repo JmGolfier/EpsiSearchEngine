@@ -3,7 +3,9 @@ var restify = require("restify");
 
 var Server = function (options) {
     this.port = options.port;
+    options.dataProvider.autoCompleteService = options.autoCompleteService;
     this.searchService = new SearchService({dataProvider: options.dataProvider});
+    this.autoCompleteService = options.autoCompleteService;
     this._createServer();
     this._addRoutes();
 };
@@ -22,7 +24,12 @@ Server.prototype.close = function () {
 Server.prototype._addRoutes = function () {
     var self = this;
     this.server.get("/search/:query", function (req, res) {
-        self.searchService.search(req.query, function(result) {
+        self.searchService.search(req.params["query"], function(result) {
+            res.send(result);
+        });
+    });
+    this.server.get("/autocomplete", function (req, res) {
+        self.autoCompleteService.get(function (result) {
             res.send(result);
         });
     });
