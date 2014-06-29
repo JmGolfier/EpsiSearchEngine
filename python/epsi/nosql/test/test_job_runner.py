@@ -1,9 +1,5 @@
 from epsi.nosql.metadata.metadata_extractor import MetadataExtractor
-
-__author__ = 'manu'
-
 import unittest
-import os
 
 
 class JobRunnerTestCase(unittest.TestCase):

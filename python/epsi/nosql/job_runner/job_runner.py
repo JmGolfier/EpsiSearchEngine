@@ -1,12 +1,12 @@
 from epsi.nosql.metadata.metadata_extractor import MetadataExtractor
 from epsi.nosql.mongodb.mongo_api import MongoApi
 from os import listdir
-from rq import Connection, Queue
+from rq import Queue
 from redis import Redis
 
 
 class JobRunner():
-    def __init__(self, connection):
+    def __init__(self):
         redis_conn = Redis()
         self.q = Queue(connection=redis_conn)
         pass

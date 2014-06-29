@@ -1,5 +1,6 @@
 import os
-os.environ['CLASSPATH'] = "/home/manu/WebStorms Projects/EpsiSearchEngine/python/epsi/nosql/test/tika-app-1.5.jar"
+from epsi.nosql.config.constants import *
+os.environ['CLASSPATH'] = TIKKA_PATH
 from jnius import autoclass
 
 class MetadataExtractor():
