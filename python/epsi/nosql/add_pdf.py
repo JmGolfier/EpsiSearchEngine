@@ -1,6 +1,5 @@
-import sys
+from settings import *
 from epsi.nosql.job_runner.job_runner import JobRunner
-from epsi.nosql.config.constants import *
 
 
 if __name__ == '__main__':

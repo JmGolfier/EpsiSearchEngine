@@ -5,11 +5,6 @@ var MongoDBDataProvider = function (options) {
     this.databaseName = options.databaseName;
     this.mongoUri = "mongodb://" + options.url + "/" + this.databaseName;
     this._ensureIndex();
-    this.autoCompleteService = options.autoCompleteService;
-};
-
-MongoDBDataProvider.prototype.saveQueryRedis = function (queryString) {
-    this.autoCompleteService.add(queryString);
 };
 
 MongoDBDataProvider.prototype.get = function (queryString, callback) {
@@ -19,15 +14,28 @@ MongoDBDataProvider.prototype.get = function (queryString, callback) {
     else {
         this._connect(function (collection, closeCallback) {
             var query = self.parser.parse(queryString);
-            if (query.default)
-                query = {$text: {$search: query.default, $language: "fr"}};
 
-            collection.find(query).toArray(function (err, result) {
+            if (query.default)
+                collection.find({
+                        $text: {
+                            $search: query.default,
+                            $language: "fr"
+                        }
+                    },
+                    {score: {$meta: "textScore"}
+                }).sort({
+                    score: {
+                        $meta: "textScore"
+                    }}
+                ).toArray(resultCallback);
+            else
+                collection.find(query).toArray(resultCallback);
+
+            function resultCallback(err, results) {
                 if (err) throw err;
-                callback({results: result});
+                callback({results: results});
                 closeCallback();
-                self.saveQueryRedis(queryString);
-            });
+            }
         });
     }
 };

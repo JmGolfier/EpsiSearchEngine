@@ -3,8 +3,12 @@ var restify = require("restify");
 
 var Server = function (options) {
     this.port = options.port;
-    options.dataProvider.autoCompleteService = options.autoCompleteService;
-    this.searchService = new SearchService({dataProvider: options.dataProvider});
+    this.searchService = new SearchService({
+        dataProvider: options.dataProvider,
+        autoCompleteService : options.autoCompleteService,
+        pdfFolder: options.pdfFolder,
+        addPdfPythonFile: options.addPdfPythonFile
+    });
     this.autoCompleteService = options.autoCompleteService;
     this._createServer();
     this._addRoutes();
@@ -33,11 +37,16 @@ Server.prototype._addRoutes = function () {
             res.send(result);
         });
     });
+    this.server.post('/upload', function(req, res, next) {
+        self.searchService.addPdf(req.files.thumbnail, function() {
+            res.send(201);
+        });
+    });
 };
 
 Server.prototype._createServer = function () {
     this.server = restify.createServer();
-    this.server.use(restify.bodyParser({ mapParams: false }));
+    this.server.use(restify.bodyParser({ mapParams: false}));
     this.server.use(
         function crossOrigin(req, res, next) {
             res.header("Access-Control-Allow-Origin", "*");

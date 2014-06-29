@@ -2,18 +2,26 @@ var Server = require("./src/Server");
 var Parser = require("./src/Parser");
 var MongoDBDataProvider = require("./src/DataProvider/MongoDBDataProvider");
 var AutoCompleteService = require("./src/AutoCompleteService");
+var fs = require("fs");
 
-var server = new Server(
-    {
-        port: 8080,
-        dataProvider: new MongoDBDataProvider({
-            url: "127.0.0.1:27017",
-            databaseName: "nosql",
-            parser: new Parser({"a": "Author", "t": "title", "sub": "subject"})
-        }),
-        autoCompleteService : new AutoCompleteService()
-    });
-server.run();
+fs.readFile("./config.json", function(err, data) {
+    if(err) throw err;
+    var config = JSON.parse(data);
+
+    var server = new Server(
+        {
+            port: 8080,
+            dataProvider: new MongoDBDataProvider({
+                url: "127.0.0.1:27017",
+                databaseName: "nosql",
+                parser: new Parser({"a": "Author", "t": "title", "sub": "subject"})
+            }),
+            autoCompleteService : new AutoCompleteService(),
+            pdfFolder: config.pdfFolder,
+            addPdfPythonFile: config.addPdfPythonFile
+        });
+    server.run();
+});
 
 /*
 

@@ -3,7 +3,8 @@ var AngularApp = angular.module('AngularApp', [
     'ngResource',
     'ui.bootstrap',
     'searchControllers',
-    'searchServices'
+    'searchServices',
+    'searchFilters'
 ]);
 
 //AngularApp.config(['$routeProvider', function($routeProvider) {

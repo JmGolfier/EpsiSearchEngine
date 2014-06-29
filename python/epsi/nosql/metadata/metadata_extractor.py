@@ -1,5 +1,7 @@
 import os
-from epsi.nosql.config.constants import *
+
+from epsi.nosql.settings import *
+
 os.environ['CLASSPATH'] = TIKKA_PATH
 from jnius import autoclass
 
@@ -16,7 +18,8 @@ class MetadataExtractor():
         tika = Tika()
         meta = Metadata()
         text = tika.parseToString(FileInputStream(path), meta)
-        return {"metadata": meta, "text": text}
+        pieces = path.split("/")
+        return {"metadata": meta, "text": text, "fileName": pieces[len(pieces) - 1]}
 
     def get_index_info(self, info):
         metadata = info["metadata"]
@@ -26,4 +29,5 @@ class MetadataExtractor():
             index_info[key] = metadata.get(key)
         index_info["contenu"] = info["text"]
         index_info["language"] = "fr"
+        index_info["fileName"] = info["fileName"]
         return index_info
