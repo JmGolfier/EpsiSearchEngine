@@ -1,1 +1,10 @@
-/*JM Tribute*/
+#searchBody{
+    margin: 2%;
+}
+#containsSearch{
+    margin: 2%;
+}
+#help{
+    margin-right: 2%;
+    text-align: right;
+}

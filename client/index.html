@@ -7,38 +7,34 @@
     <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+    <div id="help" data-toggle="tooltip" data-placement="left" title="bang : !A auteur, !T titre">Help?</div>
     <div ng-controller="SearchController">
         <div align="center" id="searchBody">
             <h1><strong>EpsiSearchEngine</strong></h1>
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Search..." ng-model="input"
-                       typeahead="search for search in previousSearches | filter:$viewValue | limitTo:8">
+                       typeahead="search for search in previousSearches | filter:$viewValue | limitTo:8" >
                 <div class="input-group-btn">
-                    <button role='button' class='btn btn-primary' ng-click="search()">
+                    <button id="searchButton" role='button' class='btn btn-primary' ng-click="search()">
                         <i class="glyphicon glyphicon-edit"></i> Search
                     </button>
                 </div>
             </div>
+            <form class="form-inline" method="post" enctype="multipart/form-data" action="http://localhost:8080/upload"align="left">
+                <input type="file" name="thumbnail">
+                <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-save"></i> Valider</button>
+            </form>
         </div>
-
-        <form method="post" enctype="multipart/form-data" action="http://localhost:8080/upload">
-            <input type="file" name="thumbnail">
-            <input type="submit">
-        </form>
-
-        <h1>Result:</h1>
-        <div>
+        <div id="containsSearch">
             <ul ng-repeat="result in result.results">
-                <div>
+                <div class="page-header">
                     <h2><a href="../pdfs/{{result.fileName}}">{{result.title}}</a></h2>
-                    <h3>{{result.Author}} <small>{{result.created}}</small></h3>
+                    <h3 >{{result.Author}} <small>{{result.created}}</small></h3>
                     <p>{{result.contenu|truncate:1024}}</p>
                 </div>
             </ul>
-            <div ng-hide="result">Je ne marche pas tout le temps...</div>
         </div>
     </div>
-
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
