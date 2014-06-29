@@ -1,3 +1,4 @@
+import settings
 import sys
 from epsi.nosql.job_runner.job_runner import JobRunner, index_pdf
 
