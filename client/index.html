@@ -7,24 +7,30 @@
     <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div id="help" tooltip="bang : !A auteur, !T titre" tooltip-placement="bottom" class="pull-right">Help?</div>
+    <div id="help" tooltip="!a auteur, !t titre" tooltip-placement="bottom" class="pull-right">Usable Bangs</div>
     <div ng-controller="SearchController">
         <div align="center" id="searchBody">
             <h1><strong>EpsiSearchEngine</strong></h1>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search..." ng-model="input"
-                       typeahead="search for search in previousSearches | filter:$viewValue | limitTo:8" >
-                <div class="input-group-btn">
-                    <button id="searchButton" role='button' class='btn btn-primary' ng-click="search()">
-                        <i class="glyphicon glyphicon-edit"></i> Search
-                    </button>
-                </div>
-            </div>
             <form class="form-inline" method="post" enctype="multipart/form-data" action="http://localhost:8080/upload"align="left">
-                <input type="file" name="thumbnail">
+                <label>You can upload a file as well:</label>
+                <input type="file" name="thumbnail" class="form-control">
                 <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-save"></i> Valider</button>
             </form>
+            <br>
+
+            <form>
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search by author: Maxim !a" ng-model="input"
+                           typeahead="search for search in previousSearches | filter:$viewValue | limitTo:8" >
+                    <div class="input-group-btn">
+                        <button id="searchButton" role='button' class='btn btn-primary' ng-click="search()">
+                            <i class="glyphicon glyphicon-edit"></i> Search
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
+
         <div id="containsSearch">
             <ul ng-repeat="result in result.results">
                 <div class="page-header">
@@ -33,6 +39,10 @@
                     <p>{{result.contenu|truncate:1024}}</p>
                 </div>
             </ul>
+        </div>
+
+        <div ng-show="result.results.length == 0">
+            <h2 class="text-center">No Results :(</h2>
         </div>
     </div>
     <script src="bower_components/angular/angular.js"></script>
