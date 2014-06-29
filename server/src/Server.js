@@ -21,8 +21,8 @@ Server.prototype.close = function () {
 
 Server.prototype._addRoutes = function () {
     var self = this;
-    this.server.post("/search", function (req, res) {
-        self.searchService.search(req.body, function(result) {
+    this.server.get("/search/:query", function (req, res) {
+        self.searchService.search(req.query, function(result) {
             res.send(result);
         });
     });

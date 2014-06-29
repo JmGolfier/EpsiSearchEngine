@@ -1,17 +1,23 @@
 var MongoClient = require('mongodb').MongoClient;
 
 var MongoDBDataProvider = function (options) {
+    this.parser = options.parser;
     this.databaseName = options.databaseName;
     this.mongoUri = "mongodb://" + options.url + "/" + this.databaseName;
     this._ensureIndex();
 };
 
-MongoDBDataProvider.prototype.get = function (filter, callback) {
-    if(!filter.default)
+MongoDBDataProvider.prototype.get = function (queryString, callback) {
+    var self = this;
+    if(!queryString)
         callback({});
     else {
         this._connect(function (collection, closeCallback) {
-            collection.find({$text: {$search: filter.default, $language: "fr"}}).toArray(function (err, result) {
+            var query = self.parser.parse(queryString);
+            if (query.default)
+                query = {$text: {$search: query.default, $language: "fr"}};
+
+            collection.find(query).toArray(function (err, result) {
                 if (err) throw err;
                 callback({results: result});
                 closeCallback();
