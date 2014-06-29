@@ -30,7 +30,7 @@
         <div>
             <ul ng-repeat="result in result.results">
                 <div>
-                    <h2><a href="./pdfs/{{result.fileName}}">{{result.title}}</a></h2>
+                    <h2><a href="../pdfs/{{result.fileName}}">{{result.title}}</a></h2>
                     <h3>{{result.Author}} <small>{{result.created}}</small></h3>
                     <p>{{result.contenu|truncate:1024}}</p>
                 </div>
