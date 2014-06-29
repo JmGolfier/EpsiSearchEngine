@@ -7,16 +7,10 @@
     <link href="css/index.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <div id="help" tooltip="!a auteur, !t titre" tooltip-placement="bottom" class="pull-right">Usable Bangs</div>
+    <div id="help" tooltip="!a auteur, !t titre, !sub subject" tooltip-placement="bottom" class="pull-right">Usable Bangs</div>
     <div ng-controller="SearchController">
         <div align="center" id="searchBody">
             <h1><strong>EpsiSearchEngine</strong></h1>
-            <form class="form-inline" method="post" enctype="multipart/form-data" action="http://localhost:8080/upload"align="left">
-                <label>You can upload a file as well:</label>
-                <input type="file" name="thumbnail" class="form-control">
-                <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-save"></i> Valider</button>
-            </form>
-            <br>
 
             <form>
                 <div class="input-group">
@@ -28,6 +22,13 @@
                         </button>
                     </div>
                 </div>
+            </form>
+
+            <br>
+            <form class="form-inline pull-right" method="post" enctype="multipart/form-data" action="http://localhost:8080/upload" align="left">
+                <label>You can upload a file as well:</label>
+                <input type="file" name="thumbnail" class="form-control">
+                <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-save"></i> Valider</button>
             </form>
         </div>
 
