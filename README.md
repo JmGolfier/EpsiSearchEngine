@@ -1,7 +1,7 @@
 EpsiSearchEngine
 ================
 
-#Insctructions
+##I. Insctructions
 
 * [Télécharger la VM VirtualBox](http://bit.ly/V15dJJ)
 * Login: root/root
@@ -9,21 +9,21 @@ EpsiSearchEngine
 * Récupérer l'adresse ip du serveur avec `ifconfig`
 * Aller sur l'addresse http://{ip}/client
 
-##I. Technologies
+##II. Technologies
 * **AngularJS** (Client)
 * **NodeJS** (Serveur HTTP)
 * **MongoDB** (Contient les fichiers pdfs indexés)
 * **Redis** (Utilisé pour les jobs et l'autocomplétion)
 * **Python/RQ** (Job runners qui indexent les fichiers pdf dans MongoDB (se base sur Redis))
 
-##II. Organisation
+##III. Organisation
 * Un dossier sur le serveur contient les mémoires au format PDF.
 * Des jobs sont stockés dans Redis (via RQ) et chaque job indexe un fichier PDF dans la base mongoDB.
 * Le serveur HTTP contient les méthodes relatives à la recherche (/search/:query).
 * Le client affiche une barre de recherche ainsi que les résultats de la recherche effectuée (avec système d’auto-complétion, et possibilité d'uploader un fichier PDF)
 
 
-##III. Fonctionnement
+##IV. Fonctionnement
 * **MongoDB**:
    * Contient les metadatas ainsi que le contenu des pdfs
    * Index FullText sur le contenu pour faciliter la recherche
@@ -43,7 +43,7 @@ EpsiSearchEngine
    * Affichage des résultats de la recherche (avec le début du contenu du mémoire)
    * Possibilité de télécharger le mémoire (exposé sur Apache)
 
-##IV. Bonus
+##V. Bonus
 
 ### Bangs
 
